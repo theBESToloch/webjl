@@ -13,6 +13,7 @@ let vertexShaderText = "\n" +
     "void main(){\n" +
     "fragColor = vertexColor;\n" +
     "gl_Position = vec4(vertexPosition, 1);\n" +
+    "gl_PointSize = 10.0;\n" +
     "}";
 
 let fragmentShaderText = "\n" +
@@ -23,7 +24,7 @@ let fragmentShaderText = "\n" +
     "\tgl_FragColor = vec4(fragColor, 1.0);\n" +
     "}";
 
-let gl = initWebGL(canvas);      // инициализация контекста GL
+let gl = initWebGL(canvas, width, height);      // инициализация контекста GL
 
 let vertexShader = createShader(gl, gl.VERTEX_SHADER, vertexShaderText);
 let fragmentShader = createShader(gl, gl.FRAGMENT_SHADER, fragmentShaderText);
@@ -70,17 +71,6 @@ function createShader(gl, shaderType, shaderText) {
 function draw(vertexArray) {
     let vertexBuffer = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
-
-    /*    let vertexArray = [
-            //  X,      Y,      Z,      R,      G,      B
-            -0.5, -0.5, 0.0, 1.0, 0.0, 0.0,
-            0.0, 0.5, 0.5, 0.0, 1.0, 0.0,
-            0.5, -0.5, 0.0, 0.0, 0.0, 1.0,
-
-            -0.5, 0.5, 0.0, 0.0, 0.0, 1.0,
-            0.0, -0.5, 0.5, 0.0, 1.0, 0.0,
-            0.5, 0.5, 0.0, 1.0, 0.0, 0.0
-        ];*/
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertexArray), gl.STATIC_DRAW);
 
     let positionAttribLocation = gl.getAttribLocation(program, "vertexPosition");
@@ -110,9 +100,10 @@ function draw(vertexArray) {
     gl.useProgram(program);
 
     gl.drawArrays(gl.TRIANGLES, 0, vertexArray.length / 6);
+    gl.drawArrays(gl.POINTS, 0, vertexArray.length / 6);
 }
 
-function initWebGL(canvas) {
+function initWebGL(canvas, width, height) {
     let gl = null;
 
     try {
