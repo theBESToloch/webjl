@@ -6,10 +6,22 @@
     <title>Page Title</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
-   
+
 </head>
 <body>
     <canvas id="canvas"></canvas>
+    <div id="info"></div>
+    <div class="angel">
+        <label for="dx">dX:</label><input id="dx" type="range" max="180" min="-180" step="1" value="0"/>
+    </div>
+    <div class="angel">
+        <label for="dY">dY:</label><input id="dy" type="range" max="180" min="-180" step="1" value="0"/>
+    </div>
+    <div class="angel">
+        <label for="dY">dZ:</label><input id="dz" type="range" max="180" min="-180" step="1" value="0"/>
+    </div>
+    <div id="additional"></div>
+
     <script id="shader-fs" type="x-shader/x-fragment">
         void main(void) {
           gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);
@@ -17,14 +29,14 @@
       </script>
       <script id="shader-vs" type="x-shader/x-vertex">
         attribute vec3 aVertexPosition;
-      
+
         uniform mat4 uMVMatrix;
         uniform mat4 uPMatrix;
-      
+
         void main(void) {
           gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
         }
       </script>
-    <script src='main.js'></script>
+    <script src='main1.js'></script>
 </body>
 </html>

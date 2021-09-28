@@ -76,12 +76,7 @@ function draw(vertexArray) {
     let positionAttribLocation = gl.getAttribLocation(program, "vertexPosition");
 
     gl.vertexAttribPointer(
-        positionAttribLocation,
-        3,
-        gl.FLOAT,
-        false,
-        6 * Float32Array.BYTES_PER_ELEMENT,
-        0 * Float32Array.BYTES_PER_ELEMENT);
+        positionAttribLocation, 3, gl.FLOAT, false, 6 * Float32Array.BYTES_PER_ELEMENT,0 * Float32Array.BYTES_PER_ELEMENT);
 
     gl.enableVertexAttribArray(positionAttribLocation);
 
