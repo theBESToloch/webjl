@@ -9,34 +9,42 @@
 
 </head>
 <body>
-    <canvas id="canvas"></canvas>
-    <div id="info"></div>
-    <div class="angel">
-        <label for="dx">dX:</label><input id="dx" type="range" max="180" min="-180" step="1" value="0"/>
-    </div>
-    <div class="angel">
-        <label for="dY">dY:</label><input id="dy" type="range" max="180" min="-180" step="1" value="0"/>
-    </div>
-    <div class="angel">
-        <label for="dY">dZ:</label><input id="dz" type="range" max="180" min="-180" step="1" value="0"/>
-    </div>
-    <div id="additional"></div>
+<canvas id="canvas"></canvas>
+<div id="info"></div>
+<div class="angel">
+    <label for="dx">dX:</label><input id="dx" type="range" max="180" min="-180" step="1" value="0"/>
+</div>
+<div class="angel">
+    <label for="dY">dY:</label><input id="dy" type="range" max="180" min="-180" step="1" value="0"/>
+</div>
+<div class="angel">
+    <label for="dY">dZ:</label><input id="dz" type="range" max="180" min="-180" step="1" value="0"/>
+</div>
+<div id="additional"></div>
 
-    <script id="shader-fs" type="x-shader/x-fragment">
-        void main(void) {
-          gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);
-        }
-      </script>
-      <script id="shader-vs" type="x-shader/x-vertex">
-        attribute vec3 aVertexPosition;
+<script id="shader-fs" type="x-shader/x-fragment">
+    precision mediump float;
+    varying vec3 fragColor;
 
-        uniform mat4 uMVMatrix;
-        uniform mat4 uPMatrix;
+    void main(){
+        gl_FragColor = vec4(fragColor, 0.8);
+    }
+</script>
+<script id="shader-vs" type="x-shader/x-vertex">
+    attribute vec3 vertexPosition;
+    attribute vec3 vertexColor;
 
-        void main(void) {
-          gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
-        }
-      </script>
-    <script src='main1.js'></script>
+    uniform mat4 uPMatrix;
+    uniform mat4 uPerMatrix;
+
+    varying vec3 fragColor;
+
+    void main(){
+        fragColor = vertexColor;
+        gl_Position = uPMatrix * vec4(vertexPosition, 1);
+    }
+</script>
+<script defer src='common.js'></script>
+<script defer src='main.js'></script>
 </body>
 </html>
