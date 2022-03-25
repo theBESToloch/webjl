@@ -10,24 +10,13 @@
 </head>
 <body>
 <canvas id="canvas"></canvas>
-<div id="info"></div>
-<div class="angel">
-    <label for="dx">dX:</label><input id="dx" type="range" max="2" min="-1" step="0.01" value="0"/>
-</div>
-<div class="angel">
-    <label for="dY">dY:</label><input id="dy" type="range" max="180" min="-180" step="1" value="0"/>
-</div>
-<div class="angel">
-    <label for="dY">dZ:</label><input id="dz" type="range" max="180" min="-180" step="1" value="0"/>
-</div>
-<div id="additional"></div>
 
 <script id="shader-fs" type="x-shader/x-fragment">
     precision mediump float;
     varying vec3 fragColor;
 
     void main(){
-        gl_FragColor = vec4(fragColor, 0.8);
+        gl_FragColor = vec4(fragColor, 1);
     }
 </script>
 <script id="shader-vs" type="x-shader/x-vertex">

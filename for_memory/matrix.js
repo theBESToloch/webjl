@@ -64,3 +64,30 @@ let m = {
         }
     }
 };
+
+let distortions = {
+    lookAt: (cameraPosition, target, up) => {
+        let zAxis = m.normalizeVec3(m.subtractVec3(cameraPosition, target));
+        let xAxis = m.normalizeVec3(m.crossVec3(up, zAxis));
+        let yAxis = m.normalizeVec3(m.crossVec3(zAxis, xAxis));
+
+        return [
+            xAxis[0], xAxis[1], xAxis[2], 0,
+            yAxis[0], yAxis[1], yAxis[2], 0,
+            zAxis[0], zAxis[1], zAxis[2], 0,
+            cameraPosition[0], cameraPosition[1], cameraPosition[2], 1,
+        ];
+    },
+    projection: (camera) => {
+
+        let r = camera.right, l = camera.left, b = camera.bottom,
+            t = camera.top, n = camera.near, f = camera.far;
+
+        return new Float32Array([
+            2 * n / (r - l),    0,                  (r + l) / (r - l),  0,
+            0,                  2 * n / (t - b),    (t + b) / (t - b),  0,
+            0,                  0,                  -(f + n) / (f - n), -2 * f * n / (f - n),
+            0,                  0,                  -1,                 0
+        ])
+    }
+}
